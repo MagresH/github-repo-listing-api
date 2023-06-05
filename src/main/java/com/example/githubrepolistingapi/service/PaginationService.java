@@ -5,6 +5,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,13 +17,16 @@ public class PaginationService {
         return new PageImpl<>(paginatedItems, pageable, totalItems);
     }
 
+    // get items for given page, pages start from index 1 like in a book
     private <T> List<T> getPageItems(List<T> items, Pageable pageable) {
-        int start = pageable.getPageNumber() * pageable.getPageSize();
-        int end = Math.min(start + pageable.getPageSize(), items.size());
-        if (start > end) {
-            throw new IllegalArgumentException("Page index out of bounds"); // TODO: custom exception
+        int start = (pageable.getPageNumber() - 1 )* pageable.getPageSize();
+        if (start > items.size()) {
+            return new ArrayList<T>();
         }
+        int end = Math.min(start + pageable.getPageSize(), items.size());
+
         return items.subList(start, end);
     }
 }
+
 
