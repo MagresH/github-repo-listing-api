@@ -8,7 +8,12 @@ import java.util.List;
 
 public interface GitHubService {
     Page<GitHubRepository> getUserRepositoriesPage(String username, int page, int size);
+
     List<GitHubRepository> fetchUserRepositories(String username);
-    List<GitHubBranch> getRepositoryBranches(String username, String repoName);
+
+    List<GitHubBranch> fetchRepositoryBranches(String username, String repoName);
+
     List<GitHubRepository> filterOutForks(List<GitHubRepository> list);
+
+    void linkRepositoriesWithBranches(String username, List<GitHubRepository> repositoryList);
 }
