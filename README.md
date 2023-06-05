@@ -7,7 +7,7 @@ The GitHub Repo Listing API is a Java application that allows to retrieve and li
 - Fetch and list GitHub repositories for a user.
 - Paginate through the repositories.
 - Filter out forked repositories.
-- Retrieve branches for each repository.
+- Retrieve branches for each repository with last commits including SHA.
 
 ## Technologies Used
 
@@ -70,3 +70,77 @@ To run the tests, follow these steps:
     This command will run all the tests and display the results in the terminal.
 
 5. Review the test results to verify that all tests pass successfully. Any failed tests will be reported along with relevant error messages.
+## Response
+
+Here's a sample response for the request `GET /api/v1/github/user/MagresH?page=1&size=2`:
+
+```json
+{
+  "content": [
+    {
+      "name": "CourseJ",
+      "owner": {
+        "login": "MagresH"
+      },
+      "branches": [
+        {
+          "name": "dev",
+          "commit": {
+            "sha": "7df4c4969cf11e1fecb64e381985a8f35f6558ab"
+          }
+        },
+        {
+          "name": "master",
+          "commit": {
+            "sha": "76a3ae6ca1f59792fd31c913e25c3b302d32bd7b"
+          }
+        }
+      ]
+    },
+    {
+      "name": "github-repo-listing-api",
+      "owner": {
+        "login": "MagresH"
+      },
+      "branches": [
+        {
+          "name": "dev",
+          "commit": {
+            "sha": "7d139a2a19cd27a4b3b5ace2854859af266320e8"
+          }
+        },
+        {
+          "name": "master",
+          "commit": {
+            "sha": "50a872d9e9363fabf54929d7159730c33ef23541"
+          }
+        }
+      ]
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "offset": 2,
+    "pageNumber": 1,
+    "pageSize": 2,
+    "paged": true,
+    "unpaged": false
+  },
+  "last": false,
+  "totalElements": 6,
+  "totalPages": 3,
+  "size": 2,
+  "number": 1,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "first": false,
+  "numberOfElements": 2,
+  "empty": false
+}
